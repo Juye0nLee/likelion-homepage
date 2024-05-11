@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,6 +99,23 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public ResponseEntity<CustomApiResponse<?>> getAllPost() {
-        return null;
+        List<Post> posts = postRepository.findAll(); //postRepository에 있는 모든 게시물 데이터를 posts 리스트에 넣어줌
+        List<PostListDto.PostResponse> postResponses = new ArrayList<>();
+
+        for(Post post : posts){
+            postResponses.add(PostListDto.PostResponse.builder()
+                    .postId(post.getId())
+                    .postedUserName(post.getPostedUserName())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .updatedAt(post.getUpdateAt())
+                    .build());
+        }
+
+        PostListDto.SearchPostsRes searchPostsRes = new PostListDto.SearchPostsRes(postResponses);
+        //응답 구현
+        CustomApiResponse<PostListDto.SearchPostsRes> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(), searchPostsRes,"게시물 전체 조회 성공");
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+
     }
 }
