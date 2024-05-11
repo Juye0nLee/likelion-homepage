@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -79,8 +80,6 @@ public class PostServiceImpl implements PostService {
             CustomApiResponse<Void> res = CustomApiResponse.createFailWithout(HttpStatus.NOT_FOUND.value(), "해당하는 게시글을 찾을 수 없습니다.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(res);
         }
-
-
         Post post = optionalPost.get();
         //찾는 게시물에 대한 데이터를 postResponse 변수에 넣어줘서 응답에 넣어줌
         PostListDto.PostResponse postResponse = new PostListDto.PostResponse(
@@ -88,12 +87,17 @@ public class PostServiceImpl implements PostService {
                 post.getPostedUserName(), //게시물 작성자 불러오기
                 post.getTitle(), //게시물 제목 불러오기
                 post.getContent(), //게시물 내용 불러오기
-                post.getUpdateAt()); //게시물 마지막 업데이트 시작 불러오기
-
+                post.getUpdateAt() //게시물 마지막 업데이트 시작 불러오기
+        );
 
         //응답 구현
         CustomApiResponse<PostListDto.PostResponse> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(),
                 postResponse, "게시글 조회 성공");
         return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @Override
+    public ResponseEntity<CustomApiResponse<?>> getAllPost() {
+        return null;
     }
 }

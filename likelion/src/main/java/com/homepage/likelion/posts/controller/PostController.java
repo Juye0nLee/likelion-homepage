@@ -36,12 +36,14 @@ public class PostController {
         return result;
     }
 
-//    @GetMapping("/all")
-//    public ResponseEntity<CustomApiResponse<?>> getAllPosts() {
-//        ResponseEntity<CustomApiResponse<?>> result = postService.getAllPost();
-//        return result;
-//    }
+    //전체 게시글 조회
+    @GetMapping("/all")
+    public ResponseEntity<CustomApiResponse<?>> getAllPosts() {
+        ResponseEntity<CustomApiResponse<?>> result = postService.getAllPost();
+        return result;
+    }
 
+    //게시글 1개 조회
     @GetMapping
     public ResponseEntity<CustomApiResponse<?>> getOnePost(
             @RequestParam("postId") Long postId){

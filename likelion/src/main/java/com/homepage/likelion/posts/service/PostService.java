@@ -13,6 +13,9 @@ public interface PostService {
     //게시물 수정 -> PostServiceImpl에서 구현
     ResponseEntity<CustomApiResponse<?>> modifyPost(Long postId, PostUpdateDto.Req req);
 
+    //게시물 1개 조회
     ResponseEntity<CustomApiResponse<?>> getOnePost(Long postId);
 
+    //게시물 전체 조회
+    ResponseEntity<CustomApiResponse<?>> getAllPost();
 }
