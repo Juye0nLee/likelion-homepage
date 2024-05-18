@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountEnterDto {
+public class MemberEnterDto {
         @NotBlank(message = "아이디를 입력해주세요")
         private String userId;
 
@@ -21,10 +21,10 @@ public class AccountEnterDto {
 
         @Getter
         @NoArgsConstructor
-        public static class AccountEnter {
+        public static class MemberEnter {
             private Long id;
             private LocalDateTime createAt;
-            public AccountEnter(Long id,LocalDateTime createAt) {
+            public MemberEnter(Long id,LocalDateTime createAt) {
                 this.createAt = createAt;
                 this.id = id;
             }

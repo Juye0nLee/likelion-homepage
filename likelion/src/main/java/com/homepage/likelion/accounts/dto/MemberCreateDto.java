@@ -1,6 +1,6 @@
 package com.homepage.likelion.accounts.dto;
 
-import com.homepage.likelion.domain.Account;
+import com.homepage.likelion.domain.Member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -8,7 +8,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-public class AccountCreateDto {
+public class MemberCreateDto {
 
     @Getter
     @Setter
@@ -33,8 +33,8 @@ public class AccountCreateDto {
         private String password;
 
 
-        public Account toEntity(){
-            return Account.builder()
+        public Member toEntity(){
+            return Member.builder()
                     .email(email)
                     .password(password)
                     .phone(phone)
@@ -52,11 +52,11 @@ public class AccountCreateDto {
     @NoArgsConstructor
     @Builder
     //계정 생성 : id, createdAt
-    public static class CreateAccount{
+    public static class CreateMember{
         private Long id;
         private LocalDateTime createAt;
 
-        public CreateAccount(Long id, LocalDateTime createAt) {
+        public CreateMember(Long id, LocalDateTime createAt) {
             this.id = id;
             this.createAt = createAt;
         }

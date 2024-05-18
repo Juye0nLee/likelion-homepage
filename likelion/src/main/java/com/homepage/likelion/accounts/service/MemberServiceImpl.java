@@ -1,10 +1,10 @@
 package com.homepage.likelion.accounts.service;
 
 
-import com.homepage.likelion.accounts.dto.AccountCreateDto;
-import com.homepage.likelion.accounts.dto.AccountEnterDto;
-import com.homepage.likelion.accounts.repository.AccountRepository;
-import com.homepage.likelion.domain.Account;
+import com.homepage.likelion.accounts.dto.MemberCreateDto;
+import com.homepage.likelion.accounts.dto.MemberEnterDto;
+import com.homepage.likelion.accounts.repository.MemberRepository;
+import com.homepage.likelion.domain.Member;
 import com.homepage.likelion.util.response.CustomApiResponse;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +17,22 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Builder
-public class AccountServiceImpl implements AccountService {
-    private final AccountRepository accountRepository;
+public class MemberServiceImpl implements MemberService {
+    private final MemberRepository memberRepository;
 
     @Override
     //회원가입
-    public ResponseEntity<CustomApiResponse<?>> signup(AccountCreateDto.Req req) {
+    public ResponseEntity<CustomApiResponse<?>> signup(MemberCreateDto.Req req) {
 
         //
-        Account account = req.toEntity();
+        Member member = req.toEntity();
 
         //저장
-        Account savedAccount = accountRepository.save(account);
+        Member savedMember = memberRepository.save(member);
 
         //응답 구현
-        AccountCreateDto.CreateAccount createAccountResponse = new AccountCreateDto.CreateAccount(savedAccount.getId(),savedAccount.getCreateAt());
-        CustomApiResponse<AccountCreateDto.CreateAccount> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(),createAccountResponse,"회원가입 성공");
+        MemberCreateDto.CreateMember createAccountResponse = new MemberCreateDto.CreateMember(savedMember.getId(),savedMember.getCreateAt());
+        CustomApiResponse<MemberCreateDto.CreateMember> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(),createAccountResponse,"회원가입 성공");
         return ResponseEntity.ok(res);
     }
 
@@ -40,25 +40,25 @@ public class AccountServiceImpl implements AccountService {
     //로그인
     // 1.  body로 받은 req가 DB에 존재하는지 검색
     // 2.
-    public ResponseEntity<CustomApiResponse<?>> login(AccountEnterDto req){
+    public ResponseEntity<CustomApiResponse<?>> login(MemberEnterDto req){
         //찾기
-        Optional<Account> optionalAccount = accountRepository.findByUserId(req.getUserId());
+        Optional<Member> optionalAccount = memberRepository.findByUserId(req.getUserId());
         //해당 아이디가 존재하지 않을 때
         if(optionalAccount.isEmpty()) {
             CustomApiResponse<Void> res =  CustomApiResponse.createFailWithout(HttpStatus.NOT_FOUND.value(), "존재하지 않는 회원입니다.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(res);
         }
 
-        Account account = optionalAccount.get();
+        Member member = optionalAccount.get();
         //비밀번호가 일치하지 않을 때
-        if(!account.getPassword().equals(req.getPassword())){
+        if(!member.getPassword().equals(req.getPassword())){
             CustomApiResponse<Void> res = CustomApiResponse.createFailWithout(HttpStatus.NOT_FOUND.value(), "비밀번호가 일치하지 않습니다.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(res);
         }
 
-        AccountEnterDto.AccountEnter accountEnter = new AccountEnterDto.AccountEnter(account.getId(), account.getCreateAt());
+        MemberEnterDto.MemberEnter accountEnter = new MemberEnterDto.MemberEnter(member.getId(), member.getCreateAt());
         //로그인
-        CustomApiResponse<AccountEnterDto.AccountEnter> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(),accountEnter,"로그인 성공");
+        CustomApiResponse<MemberEnterDto.MemberEnter> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(),accountEnter,"로그인 성공");
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
@@ -66,8 +66,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public ResponseEntity<CustomApiResponse<?>> withdraw(Long userId) {
          //삭제
-         accountRepository.deleteById(userId);
-         Optional<Account> optionalAccount = accountRepository.findById(userId);
+        memberRepository.deleteById(userId);
+         Optional<Member> optionalAccount = memberRepository.findById(userId);
 //         // 해당 userId를 가진 회원이 존재하지 않는 경우
 //        if(optionalAccount.isEmpty()) {
 //            CustomApiResponse<Void> res = CustomApiResponse.createFailWithoutData(HttpStatus.NOT_FOUND.value(), "해당 userId를 가진 회원은 존재하지 않습니다.");

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 )
 @Table(name="MEMBERS")
 @Builder
-public class Account extends BaseEntity
+public class Member extends BaseEntity
 {
     @Id
     //기본키 생성
