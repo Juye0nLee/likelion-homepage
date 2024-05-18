@@ -1,4 +1,4 @@
-package com.homepage.likelion.accounts.dto;
+package com.homepage.likelion.members.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

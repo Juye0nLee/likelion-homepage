@@ -1,10 +1,10 @@
-package com.homepage.likelion.accounts.controller;
+package com.homepage.likelion.members.controller;
 
 
 
-import com.homepage.likelion.accounts.dto.MemberCreateDto;
-import com.homepage.likelion.accounts.dto.MemberEnterDto;
-import com.homepage.likelion.accounts.service.MemberService;
+import com.homepage.likelion.members.dto.MemberCreateDto;
+import com.homepage.likelion.members.dto.MemberEnterDto;
+import com.homepage.likelion.members.service.MemberService;
 import com.homepage.likelion.util.response.CustomApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

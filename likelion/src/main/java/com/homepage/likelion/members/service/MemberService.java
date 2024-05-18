@@ -1,8 +1,8 @@
-package com.homepage.likelion.accounts.service;
+package com.homepage.likelion.members.service;
 
 
-import com.homepage.likelion.accounts.dto.MemberCreateDto;
-import com.homepage.likelion.accounts.dto.MemberEnterDto;
+import com.homepage.likelion.members.dto.MemberCreateDto;
+import com.homepage.likelion.members.dto.MemberEnterDto;
 import com.homepage.likelion.util.response.CustomApiResponse;
 import org.springframework.http.ResponseEntity;
 

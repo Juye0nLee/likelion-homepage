@@ -1,4 +1,4 @@
-package com.homepage.likelion.accounts.dto;
+package com.homepage.likelion.members.dto;
 
 import com.homepage.likelion.domain.Member;
 import jakarta.validation.constraints.Email;

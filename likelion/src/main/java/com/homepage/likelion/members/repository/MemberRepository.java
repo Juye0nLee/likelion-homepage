@@ -1,4 +1,4 @@
-package com.homepage.likelion.accounts.repository;
+package com.homepage.likelion.members.repository;
 
 
 import com.homepage.likelion.domain.Member;
